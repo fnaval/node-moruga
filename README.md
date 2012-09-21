@@ -66,6 +66,20 @@ For example, to test response handling in your code for a particular HTTP status
 X-Moruga-Control: short-circuit, status=403
 ```
 
+To cause Moruga to drop the connection after 2 seconds without returning anything:
+
+```
+X-Moruga-Control: empty-reply, wait-sec=2
+```
+
+Or, to return only about half the body:
+
+```
+X-Moruga-Control: truncate-body, location=middle
+```
+
+Alternatively, use ```location=one-off``` to return all but the last byte of the response body, or ```location=beginning``` to return an empty body.
+
 ### Filter Pipeline ###
 
 Moruga uses the popular [Connect](http://www.senchalabs.org/connect/) library to create a filter pipeline for proxied HTTP requests. Each filter contains a human-readable name, URL path to match on, and an action. A custom actions may terminate the filter pipeline and return its own response, or allow processing to continue down the pipe.
